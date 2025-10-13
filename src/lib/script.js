@@ -1,6 +1,11 @@
-
 document.addEventListener('DOMContentLoaded', function() {
-  const table = document.querySelector('table');
-  console.log(table);
-  table.draggable = true;
+    const tables = document.querySelectorAll('[data-ai-draggable]');
+
+    console.log('Found ' + tables.length + ' draggable tables');
+
+    tables.forEach(function(table) {
+        console.log(table);
+        table.draggable = true;
+        console.log('Made table draggable');
+    });
 });
