@@ -4,8 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Found ' + tables.length + ' draggable tables');
 
     tables.forEach(function(table) {
-        console.log(table);
         table.draggable = true;
-        console.log('Made table draggable');
-    });
+
+        table.addEventListener('dragstart', function(event) {
+            console.log('Started dragging a table!');
+
+            const headers = Array.from(table.querySelectorAll('thead th'));
+            const headerNames = headers.map(function(th) {
+                return th.textContent.trim().toLowerCase();
+            });
+
+            console.log(headerNames)
+        });
+    }); 
 });
