@@ -21,7 +21,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 return rowData;
             });
 
-            console.log(data);
+            event.dataTransfer.setData('application/json', JSON.stringify(data));
         });
-    }); 
+    });
+
+    const dropZone = document.getElementById('drop-zone')
+    console.log(dropZone.textContent.trim());
+    dropZone.addEventListener('dragover', function(event) {
+        event.target.style.color = "pink";
+        event.preventDefault();       
+    });
+
+    dropZone.addEventListener('drop', function(event){
+        event.preventDefault();
+        const jsonData = event.dataTransfer.getData('application/json');
+        const data = JSON.parse(jsonData);
+
+        console.log('Dropped data:', data);
+    });
+
 });
