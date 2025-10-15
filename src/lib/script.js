@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const tables = document.querySelectorAll('[data-ai-draggable]');
+    // base functionality with table support
+    const tables = document.querySelectorAll('[vizune-draggable]');
 
     tables.forEach(function(table) {
         table.draggable = true;
@@ -17,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 content.forEach(function(item, index) {
                     rowData[headerNames[index]] = item.textContent.trim()
                 });
-
                 return rowData;
             });
 
@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    const dropZone = document.getElementById('drop-zone')
-    console.log(dropZone.textContent.trim());
+    // drop zone tag
+    const dropZone = document.getElementById('vizune-dz')
     dropZone.addEventListener('dragover', function(event) {
         event.target.style.color = "pink";
         event.preventDefault();       
@@ -36,8 +36,5 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         const jsonData = event.dataTransfer.getData('application/json');
         const data = JSON.parse(jsonData);
-
-        console.log('Dropped data:', data);
     });
-
 });
