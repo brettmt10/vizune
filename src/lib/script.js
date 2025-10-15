@@ -1,3 +1,25 @@
+async function maxAccuracy(data) {
+  const url = 'http://127.0.0.1:8000/max-accuracy';
+  try {
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // base functionality with table support
     const tables = document.querySelectorAll('[vizune-draggable]');
@@ -36,5 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         const jsonData = event.dataTransfer.getData('application/json');
         const data = JSON.parse(jsonData);
+        maxAccuracy(data);
     });
 });
