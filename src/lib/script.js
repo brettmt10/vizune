@@ -1,5 +1,5 @@
 async function maxAccuracy(data) {
-  const url = 'http://127.0.0.1:8000/max-accuracy';
+  const url = 'http://127.0.0.1:8000/generic';
   try {
     const response = await fetch(url, {
         method: "POST",

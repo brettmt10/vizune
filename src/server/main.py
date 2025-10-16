@@ -21,7 +21,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/max-accuracy")
-async def max_engine(entry: list[dict]):
+@app.post("/generic")
+async def generic_comp(entry: list[dict]):
     return(entry)
-                   
