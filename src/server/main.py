@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 load_dotenv()
 URL_DEV = os.getenv('URL_DEV')
 print("URL:", URL_DEV)
-
 origins = [
     URL_DEV
 ]
@@ -22,11 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class Entry(BaseModel):
-    name: str
-    accuracy: float
-    color: str
-
 @app.post("/max-accuracy")
-async def max_engine(entry: list[Entry]):
-    return entry
+async def max_engine(entry: list[dict]):
+    return(entry)
+                   
