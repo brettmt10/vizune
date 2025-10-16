@@ -23,4 +23,6 @@ app.add_middleware(
 
 @app.post("/generic")
 async def generic_comp(entry: list[dict]):
-    pass
+    df = pd.DataFrame(entry)
+    dtypes_dict = {col: str(dtype) for col, dtype in df.dtypes.items()}
+    return dtypes_dict

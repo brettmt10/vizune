@@ -38,7 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const content = Array.from(row.querySelectorAll('td'));
                 const rowData = {};
                 content.forEach(function(item, index) {
-                    rowData[headerNames[index]] = item.textContent.trim()
+                    const value = item.textContent.trim();
+                    const numValue = Number(value);
+                    rowData[headerNames[index]] = isNaN(numValue) ? value : numValue;
                 });
                 return rowData;
             });
