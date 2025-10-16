@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
+import pandas as pd
 
 load_dotenv()
 URL_DEV = os.getenv('URL_DEV')
@@ -23,4 +23,4 @@ app.add_middleware(
 
 @app.post("/generic")
 async def generic_comp(entry: list[dict]):
-    return(entry)
+    pass
