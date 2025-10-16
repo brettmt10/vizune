@@ -1,10 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+URL_DEV = os.getenv('URL_DEV')
+print("URL:", URL_DEV)
 
 origins = [
-    "http://127.0.0.1:5500",
-    "http://localhost:5500"
+    URL_DEV
 ]
 
 app = FastAPI()
