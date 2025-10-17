@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 def flag_coerce(df: pd.DataFrame, col):
     n_df = df.copy()
