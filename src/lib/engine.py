@@ -10,7 +10,7 @@ def flag_coerce(df: pd.DataFrame, col):
 def type_decision(df_ic: pd.DataFrame):
     return 'float' if df_ic.sum() / len(df_ic) < 0.3 else 'string'
 
-def coerce_vals(df: pd.DataFrame, col, type_d):
+def coerce_vals(df: pd.Series, col, type_d):
     n_df = df.copy()
     if type_d == 'float':
         n_df[col] = pd.to_numeric(n_df[col], errors='coerce')
