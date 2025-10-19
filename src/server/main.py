@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 import pandas as pd
-from src.lib.engine import TypeInference
+from src.lib.types import TypeInference
 import numpy as np
 
 load_dotenv()
@@ -23,8 +23,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/generic")
-async def generic_comp(entry: list[dict]):
+@app.post("/summary")
+async def summarize(entry: list[dict]):
     te = TypeInference()
     df = pd.DataFrame(entry)
     for col in df:

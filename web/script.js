@@ -1,5 +1,5 @@
-async function maxAccuracy(data) {
-  const url = 'http://127.0.0.1:8000/generic';
+async function getSummary(data) {
+  const url = 'http://127.0.0.1:8000/summary';
   try {
     const response = await fetch(url, {
         method: "POST",
@@ -50,16 +50,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // drop zone tag
-    const dropZone = document.getElementById('vizune-dz')
-    dropZone.addEventListener('dragover', function(event) {
-        event.target.style.color = "pink";
-        event.preventDefault();       
-    });
+    const dropZones = document.querySelectorAll('[vizune-dz]');
+    dropZones.forEach(function(zone) {
+        zone.addEventListener('dragover', function(event) {
+            event.preventDefault();
+            event.target.style.color = "pink";
+        });
 
-    dropZone.addEventListener('drop', function(event){
-        event.preventDefault();
-        const jsonData = event.dataTransfer.getData('application/json');
-        const data = JSON.parse(jsonData);
-        maxAccuracy(data);
+        zone.addEventListener('drop', function(event) {
+            event.preventDefault();
+            const data = JSON.parse(event.dataTransfer.getData('application/json'));
+
+            getSummary(data, zone);
+        });
     });
 });
