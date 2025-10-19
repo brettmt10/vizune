@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 import pandas as pd
-from src.lib import engine
+from src.lib.engine import TypeInference
+import numpy as np
 
 load_dotenv()
 URL_DEV = os.getenv('URL_DEV')
@@ -24,4 +25,8 @@ app.add_middleware(
 
 @app.post("/generic")
 async def generic_comp(entry: list[dict]):
-    pass
+    te = TypeInference()
+    df = pd.DataFrame(entry)
+    for col in df:
+        df[col] = te.infer(df, col)
+    return df.replace({np.nan: None})
