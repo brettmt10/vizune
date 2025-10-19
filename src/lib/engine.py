@@ -16,4 +16,4 @@ def coerce_vals(df: pd.Series, col, type_d):
         n_df[col] = pd.to_numeric(n_df[col], errors='coerce')
     else:
         n_df[col] = n_df[col].astype(str)
-    return n_df
+    return n_df 
