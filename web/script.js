@@ -1,3 +1,5 @@
+import { vizuneBar } from './templates.js';
+
 async function getSummary(data) {
   const url = 'http://127.0.0.1:8000/summary';
   try {
@@ -15,6 +17,7 @@ async function getSummary(data) {
 
     const result = await response.json();
     console.log(result);
+    return result
   } catch (error) {
     console.error(error.message);
   }
@@ -61,7 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             const data = JSON.parse(event.dataTransfer.getData('application/json'));
 
-            getSummary(data, zone);
+            // getSummary(data);
+            // vizuneBar(data, "name", "accuracy");
         });
     });
 });
