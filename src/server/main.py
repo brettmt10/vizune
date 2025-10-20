@@ -4,7 +4,10 @@ import os
 from dotenv import load_dotenv
 import pandas as pd
 from src.lib.types import TypeInference
+from src.lib.vizune import VizuneAI
 import numpy as np
+
+te = TypeInference()
 
 load_dotenv()
 URL_DEV = os.getenv('URL_DEV')
@@ -25,8 +28,11 @@ app.add_middleware(
 
 @app.post("/summary")
 async def summarize(entry: list[dict]):
-    te = TypeInference()
     df = pd.DataFrame(entry)
-    for col in df:
-        df[col] = te.infer(df, col)
-    return df.replace({np.nan: None})
+    df = te.infer(df)
+    input_df = df.replace({np.nan: None})
+    
+    vai = VizuneAI(input_df)
+    res = vai.vizune()
+    return res.output_text
+ 
