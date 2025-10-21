@@ -1,12 +1,19 @@
 from openai import OpenAI
 import json
+from src.lib.responses import ChartResponseOptionSchemas
+import pandas as pd
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
-client = OpenAI()
+PROMPT_ID = os.getenv('PROMPT_ID')
 
 # openAI wrapper tailored to Vizune
 class VizuneAI():
-    def __init__(self, data):
+    def __init__(self, data, meta_d):
         self.input_data = data
+        self.meta_d = meta_d
+        self.client = OpenAI()
     
     def format_input(self, df):
         data = df.to_dict(orient='records')
@@ -14,13 +21,29 @@ class VizuneAI():
             return json.dumps(data)
         return json.dumps(data, indent=2)
     
-    def send_response(self, data):  
-        response = client.responses.create(
+    def send_response(self, data, meta_d: dict):
+        response = self.client.responses.parse(
             model="gpt-5-nano",
-            input=f"Summarize this data: {data}."
+            prompt={
+                "id": PROMPT_ID,
+                "version": "2",
+                "variables": {
+                    "data": str(data),
+                    "meta_d": str(meta_d)
+                }
+            },
+            input=[],
+            reasoning={},
+            store=True,
+            include=[
+                "reasoning.encrypted_content",
+                "web_search_call.action.sources"
+            ],
+            text_format=ChartResponseOptionSchemas,
         )
+        # print(response.output_parsed.model_dump())
         return response
-    
+        
     def vizune(self):
         data_f = self.format_input(df=self.input_data)
-        return self.send_response(data_f)
+        return self.send_response(data_f, self.meta_d)
