@@ -16,8 +16,3 @@ ChartResponseOptions = Union[
     ResponseModelVizuneBar,
     ResponseModelVizuneLine
 ]
-
-
-    
-    
-    
