@@ -15,9 +15,11 @@ class TypeInference:
         return df_c.astype(str) 
     
     def infer(self, df: pd.DataFrame):
+        metadata = {}
         for col in df.columns:
             df_c = df[col]
             df_ic = self._flag_coerce(df_c)
             type_d = self._type_decision(df_ic)
             df[col] = self._coerce_vals(df_c, type_d)
-        return df
+            metadata[col] = type_d
+        return df, metadata

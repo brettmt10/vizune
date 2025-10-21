@@ -29,7 +29,7 @@ app.add_middleware(
 @app.post("/summary")
 async def summarize(entry: list[dict]):
     df = pd.DataFrame(entry)
-    df = te.infer(df)
+    df, metadata = te.infer(df)
     input_df = df.replace({np.nan: None})
     
     vai = VizuneAI(input_df)
