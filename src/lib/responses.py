@@ -1,13 +1,12 @@
 from pydantic import BaseModel
 from enum import Enum
+from typing import Literal
 
-class ChartOptions(str, Enum):
-    BAR = "bar"
-    LINE = "line"
-    
 class ResponseModelVizuneBar(BaseModel):
-    chart: ChartOptions
+    chart: Literal['bar']
     x_lab: str
     y_lab: str
+
+    
     
     
