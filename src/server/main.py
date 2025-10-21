@@ -32,7 +32,7 @@ async def summarize(entry: list[dict]):
     df, metadata = te.infer(df)
     input_df = df.replace({np.nan: None})
     
-    vai = VizuneAI(input_df)
+    vai = VizuneAI(data=input_df, meta_d=metadata)
     res = vai.vizune()
-    return res.output_text
+    return res.output_parsed
  
