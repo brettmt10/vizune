@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Literal, Union
+from typing import Literal
 
 class ResponseModelVizuneBar(BaseModel):
     chart: Literal['bar']
@@ -11,8 +11,8 @@ class ResponseModelVizuneLine(BaseModel):
     x_lab: str
     y_lab: str
     smooth: bool
-    
-ChartResponseOptions = Union[
-    ResponseModelVizuneBar,
-    ResponseModelVizuneLine
-]
+
+class ChartResponseOptionSchemas(BaseModel):
+    chart_type: Literal['bar', 'line']
+    bar_config: ResponseModelVizuneBar | None = None
+    line_config: ResponseModelVizuneLine | None = None
