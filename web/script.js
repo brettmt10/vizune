@@ -16,7 +16,6 @@ async function getSummary(data) {
     }
 
     const result = await response.json();
-    console.log(result);
     return result
   } catch (error) {
     console.error(error.message);
@@ -60,12 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
             event.target.style.color = "pink";
         });
 
-        zone.addEventListener('drop', function(event) {
+        zone.addEventListener('drop', async function(event) {
             event.preventDefault();
             const data = JSON.parse(event.dataTransfer.getData('application/json'));
 
-            // getSummary(data);
-            // vizuneBar(data, "name", "accuracy");
+            let x = await getSummary(data);
+            console.log(x)
+            if (x.chart_type == 'bar'){
+                vizuneBar(data, "name", "accuracy");
+            } 
         });
     });
 });
