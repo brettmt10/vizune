@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 class TypeInference:
     def _flag_coerce_float(self, df_c: pd.Series):
@@ -20,6 +21,9 @@ class TypeInference:
     def _coerce_vals(self, df_c, type_d):
         if type_d == 'float':
             return pd.to_numeric(df_c, errors='coerce')
+        elif type_d == 'datetime':
+            temp = pd.to_datetime(df_c, errors='coerce', format='mixed')
+            return temp.apply(lambda x: str(x) if pd.notna(x) else np.nan)
         return df_c.astype(str)
     
     def infer(self, df: pd.DataFrame):
