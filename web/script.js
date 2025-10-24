@@ -63,13 +63,14 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             const data = JSON.parse(event.dataTransfer.getData('application/json'));
 
-            let chart_obj = await suggest_visual(data);
-            console.log(chart_obj);
+            let res = await suggest_visual(data);
+            let chart_obj = res.response;
+            let res_data = res.input_df;
             if (chart_obj.chart_type == 'bar'){
-                vizuneBar(data, chart_obj.bar_config.x_lab, chart_obj.bar_config.y_lab);
+                vizuneBar(res_data, chart_obj.bar_config.x_lab, chart_obj.bar_config.y_lab);
             }
             else {
-                vizuneLine(data, chart_obj.line_config.x_lab, chart_obj.line_config.y_lab);
+                vizuneLine(res_data, chart_obj.line_config.x_lab, chart_obj.line_config.y_lab);
             }
         });
     });

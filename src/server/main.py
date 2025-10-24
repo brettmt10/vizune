@@ -34,5 +34,8 @@ async def suggest_visual(entry: list[dict]):
     
     vai = VizuneAI(data=input_df, meta_d=metadata)
     res = vai.vizune()
-    return res.output_parsed
+    return {
+        "response": res.output_parsed, 
+        "input_df": input_df.to_dict(orient='records')
+    }
  
