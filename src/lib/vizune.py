@@ -27,7 +27,7 @@ class VizuneAI():
             model="gpt-5-nano",
             prompt={
                 "id": PROMPT_ID,
-                "version": "3",
+                "version": "5",
                 "variables": {
                     "data": str(data),
                     "meta_d": str(meta_d)

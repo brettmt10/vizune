@@ -20,8 +20,6 @@ class TypeInference:
     def _coerce_vals(self, df_c, type_d):
         if type_d == 'float':
             return pd.to_numeric(df_c, errors='coerce')
-        elif type_d == 'datetime':
-            return pd.to_datetime(df_c, errors='coerce', format='mixed')
         return df_c.astype(str)
     
     def infer(self, df: pd.DataFrame):
