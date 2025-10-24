@@ -1,9 +1,14 @@
 import pandas as pd
 
 class TypeInference:
-    def _flag_coerce(self, df_c: pd.Series):
+    def _flag_coerce_float(self, df_c: pd.Series):
         o_na = df_c.isna()
         ic = pd.to_numeric(df_c, errors='coerce')
+        return ic.isna() & ~o_na
+    
+    def _flag_coerce_dtm(self, df_c: pd.Series):
+        o_na = df_c.isna()
+        ic = pd.to_datetime(df_c, errors='coerce')
         return ic.isna() & ~o_na
 
     def _type_decision(self, df_ic: pd.Series):
