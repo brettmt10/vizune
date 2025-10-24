@@ -1,4 +1,4 @@
-import { vizuneBar } from './templates.js';
+import { vizuneBar, vizuneLine } from './templates.js';
 
 async function suggest_visual(data) {
   const url = 'http://127.0.0.1:8000/vizune/suggestion';
@@ -64,8 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = JSON.parse(event.dataTransfer.getData('application/json'));
 
             let chart_obj = await suggest_visual(data);
+            console.log(chart_obj);
             if (chart_obj.chart_type == 'bar'){
                 vizuneBar(data, chart_obj.bar_config.x_lab, chart_obj.bar_config.y_lab);
+            }
+            else {
+                vizuneLine(data, chart_obj.line_config.x_lab, chart_obj.line_config.y_lab);
             }
         });
     });
