@@ -26,8 +26,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/summary")
-async def summarize(entry: list[dict]):
+@app.post("/vizune/suggestion")
+async def suggest_visual(entry: list[dict]):
     df = pd.DataFrame(entry)
     df, metadata = te.infer(df)
     input_df = df.replace({np.nan: None})
