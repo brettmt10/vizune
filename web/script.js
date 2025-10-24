@@ -1,7 +1,7 @@
 import { vizuneBar } from './templates.js';
 
-async function getSummary(data) {
-  const url = 'http://127.0.0.1:8000/summary';
+async function suggest_visual(data) {
+  const url = 'http://127.0.0.1:8000/vizune/suggestion';
   try {
     const response = await fetch(url, {
         method: "POST",
@@ -63,11 +63,10 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             const data = JSON.parse(event.dataTransfer.getData('application/json'));
 
-            let x = await getSummary(data);
-            console.log(x)
-            if (x.chart_type == 'bar'){
-                vizuneBar(data, "name", "accuracy");
-            } 
+            let chart_obj = await suggest_visual(data);
+            if (chart_obj.chart_type == 'bar'){
+                vizuneBar(data, chart_obj.bar_config.x_lab, chart_obj.bar_config.y_lab);
+            }
         });
     });
 });
