@@ -16,6 +16,7 @@ class VizuneAI():
         self.client = OpenAI()
     
     def format_input(self, df):
+        df.columns = df.columns.str.lower()
         data = df.to_dict(orient='records')
         if len(data) > 100:
             return json.dumps(data)
@@ -26,7 +27,7 @@ class VizuneAI():
             model="gpt-5-nano",
             prompt={
                 "id": PROMPT_ID,
-                "version": "2",
+                "version": "3",
                 "variables": {
                     "data": str(data),
                     "meta_d": str(meta_d)
@@ -41,7 +42,6 @@ class VizuneAI():
             ],
             text_format=ChartResponseOptionSchemas,
         )
-        # print(response.output_parsed.model_dump())
         return response
         
     def vizune(self):
