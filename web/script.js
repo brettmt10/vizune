@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (chart_obj.chart_type == 'bar'){
                 vizuneBar(res_data, chart_obj.bar_config.x_lab, chart_obj.bar_config.y_lab);
             }
-            else {
+            else if (chart_obj.chart_type == 'line'){
                 vizuneLine(res_data, chart_obj.line_config.x_lab, chart_obj.line_config.y_lab);
             }
         });
